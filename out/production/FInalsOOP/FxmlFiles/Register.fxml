@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="610.0" style="-fx-background-color: ADBBDA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
+    <children>
+        <!-- Left Design Section -->
+        <Pane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #3D52A0;">
+            <children>
+                <Label layoutX="20.0" layoutY="20.0" style="-fx-text-fill: white; -fx-font-size: 24px;" text="Register" />
+                <ImageView fitHeight="206.0" fitWidth="238.0" layoutX="-3.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/Dorm.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="12.0" layoutY="200.0" style="-fx-text-fill: white; -fx-font-size: 14px;" text="Create your account with us!" />
+            </children>
+        </Pane>
+
+        <!-- Right Registration Section -->
+        <Pane layoutX="200.0" layoutY="0.0" prefHeight="400.0" prefWidth="410.0" style="-fx-background-color: ADBBDA;">
+            <children>
+            <VBox alignment="CENTER" layoutX="77.0" layoutY="25.0" minWidth="-Infinity" prefHeight="351.0" prefWidth="268.0" style="-fx-background-color: #3D52A0; -fx-background-radius: 20;">
+               <children>
+                      <Label prefHeight="1.0" prefWidth="65.0" style="-fx-font-size: 18px;" text="Register" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                      <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="username" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                      <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="password" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                      <PasswordField fx:id="confirmPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="confirm password" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                  <Label fx:id="statusLabel" prefHeight="17.0" prefWidth="191.0" textAlignment="CENTER" textFill="LIME" />
+      
+                      <!-- Buttons -->
+                      <Button fx:id="registerButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #7091E6; -fx-text-fill: white; -fx-background-radius: 10;" text="Sign Up">
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                      <Button fx:id="backToLoginButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #7091E6; -fx-text-fill: white; -fx-background-radius: 10;" text="Back to Login" />
+               </children>
+            </VBox>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
