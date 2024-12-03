@@ -5,10 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -17,7 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class LoginController {
-
+    @FXML
+    private Label usernameChecker;
+    @FXML
+    private Label passwordChecker;
     @FXML
     private TextField usernameField;
 
@@ -41,9 +42,21 @@ public class LoginController {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
-            if (username.isEmpty() || password.isEmpty()) {
-                System.out.println("Please enter both username and password.");
+            if (username.isEmpty()) {
+                usernameChecker.setTextFill(Paint.valueOf("red"));
+                usernameChecker.setText("Username is required!");
                 return;
+            } else {
+                usernameChecker.setText("");
+            }
+
+            if (password.isEmpty()) {
+                passwordChecker.setTextFill(Paint.valueOf("red"));
+                passwordChecker.setText("Password is required!");
+                return;
+            } else {
+                passwordChecker.setText("");
+
             }
 
             if (validateCredentials(username, password)) {
