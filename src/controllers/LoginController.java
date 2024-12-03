@@ -31,7 +31,6 @@ public class LoginController {
     @FXML
     private Hyperlink signUpLink;
 
-    // JDBC connection details
     private static final String DB_URL = "jdbc:mysql://localhost:3306/dormdb_sasa";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
