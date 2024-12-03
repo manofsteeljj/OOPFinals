@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="FxmlFiles.RoomManageAction"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <!-- Sidebar -->
+    <AnchorPane fx:id="sidebar" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #34495e;">
+        <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="75.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../img/Dorm.png" />
+                </image>
+            </ImageView>
+            <Label layoutX="75.0" layoutY="120.0" text="Dorm Management" style="-fx-font-size: 20px; -fx-text-fill: white;"/>
+            <VBox layoutX="10.0" layoutY="160.0" spacing="20.0">
+                <Button text="Manage Rooms" fx:id="manageRoomsBtn" style="-fx-background-color: #2c3e50; -fx-text-fill: white;"/>
+                <Button text="Manage New Tenant" fx:id="manageNewTenantBtn" style="-fx-background-color: #2c3e50; -fx-text-fill: white;"/>
+                <Button text="Manage Tenants" fx:id="manageTenantsBtn" style="-fx-background-color: #2c3e50; -fx-text-fill: white;"/>
+                <Button text="Manage Facilities" fx:id="manageFacilitiesBtn" style="-fx-background-color: #2c3e50; -fx-text-fill: white;"/>
+                <Button text="Logout" fx:id="logoutBtn" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+            </VBox>
+        </children>
+    </AnchorPane>
+
+    <!-- Main Content -->
+    <AnchorPane layoutX="250.0" prefHeight="600.0" prefWidth="550.0">
+        <children>
+            <!-- Room Details -->
+            <Label layoutX="20.0" layoutY="20.0" text="Manage Room" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Label layoutX="20.0" layoutY="60.0" text="Room Number: " style="-fx-font-size: 16px;"/>
+            <Label fx:id="roomNumberLabel" layoutX="150.0" layoutY="60.0" text="" style="-fx-font-size: 16px;"/>
+
+            <Label layoutX="20.0" layoutY="100.0" text="Room Type: " style="-fx-font-size: 16px;"/>
+            <Label fx:id="roomTypeLabel" layoutX="150.0" layoutY="100.0" text="" style="-fx-font-size: 16px;"/>
+
+            <Label layoutX="20.0" layoutY="140.0" text="Total Slots: " style="-fx-font-size: 16px;"/>
+            <Label fx:id="totalSlotsLabel" layoutX="150.0" layoutY="140.0" text="" style="-fx-font-size: 16px;"/>
+
+            <Label layoutX="20.0" layoutY="180.0" text="Remaining Slots: " style="-fx-font-size: 16px;"/>
+            <Label fx:id="remainingSlotsLabel" layoutX="150.0" layoutY="180.0" text="" style="-fx-font-size: 16px;"/>
+
+            <!-- Tenants Table -->
+            <Label layoutX="20.0" layoutY="220.0" text="Tenants" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <TableView fx:id="tenantsTable" layoutX="20.0" layoutY="260.0" prefHeight="300.0" prefWidth="510.0">
+                <columns>
+                    <TableColumn text="ID#" fx:id="tenantIdCol" prefWidth="80.0"/>
+                    <TableColumn text="Name" fx:id="tenantNameCol" prefWidth="150.0"/>
+                    <TableColumn text="Gender" fx:id="tenantGenderCol" prefWidth="100.0"/>
+                    <TableColumn text="Contact#" fx:id="tenantContactCol" prefWidth="150.0"/>
+                    <TableColumn text="Stay From" fx:id="tenantStayFromCol" prefWidth="100.0"/>
+                    <TableColumn text="Stay To" fx:id="tenantStayToCol" prefWidth="100.0"/>
+                    <TableColumn text="Actions" fx:id="tenantActionsCol" prefWidth="100.0"/>
+                </columns>
+            </TableView>
+        </children>
+    </AnchorPane>
+
+</AnchorPane>

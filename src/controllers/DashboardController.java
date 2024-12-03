@@ -3,13 +3,22 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import models.Room;
 
 import java.sql.*;
+import java.util.Stack;
 
 public class DashboardController {
+    @FXML
+    private Button roomManage;
+    @FXML
+    private Label statusLabel;
 
     @FXML
     private TextField searchBar;
@@ -42,6 +51,35 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
+        roomManage.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/Dashboard.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) roomManage.getScene().getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.setTitle("Register");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        addRoomButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/AddRoom.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) addRoomButton.getScene().getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.setTitle("Register");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         // Initialize table columns
         idColumn.setCellValueFactory(data -> data.getValue().idProperty().asObject());
         roomNumberColumn.setCellValueFactory(data -> data.getValue().roomNumberProperty());
@@ -68,8 +106,18 @@ public class DashboardController {
                 });
 
                 editButton.setOnAction(event -> {
-                    Room room = getTableView().getItems().get(getIndex());
-                    handleEditRoom(room);
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/EditRoomAction.fxml"));
+                        Parent root = loader.load();
+
+                        Stage stage = (Stage) editButton.getScene().getWindow();
+
+                        stage.setScene(new Scene(root));
+                        stage.setResizable(false);
+                        stage.setTitle("Edit Room");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 });
 
                 deleteButton.setOnAction(event -> {
@@ -90,7 +138,6 @@ public class DashboardController {
             }
         });
 
-        // Load initial data
         loadRoomData();
         roomsTable.setItems(roomList);
     }
@@ -132,25 +179,43 @@ public class DashboardController {
         roomsTable.setItems(filteredList);
     }
 
-    @FXML
-    private void handleAddRoom() {
-        // Logic to add a new room
-        System.out.println("Add Room button clicked");
-    }
+
+    // Action buttons
 
     private void handleManageRoom(Room room) {
         // Logic to manage a room
-        System.out.println("Manage room: " + room);
     }
 
     private void handleEditRoom(Room room) {
-        // Logic to edit a room
-        System.out.println("Edit room: " + room);
+
     }
 
+
     private void handleDeleteRoom(Room room) {
-        // Logic to delete a room
-        roomList.remove(room);
-        System.out.println("Delete room: " + room);
+        roomList.remove(room); // remove from table only
+
+        String url = "jdbc:mysql://localhost:3306/dormdb_sasa";
+        String user = "root";
+        String password = "";
+
+        String query = "DELETE FROM rooms WHERE room_number = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, room.getRoomNumber());
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    statusLabel.setText("Room " + room.getRoomNumber() + " deleted from the database.");
+                } else {
+                    statusLabel.setText("Room not found in the database.");
+                }
+            } catch (SQLException e) {
+                statusLabel.setText("Error deleting room from the database: " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            statusLabel.setText("Connection error: " + e.getMessage());
+        }
     }
+
 }

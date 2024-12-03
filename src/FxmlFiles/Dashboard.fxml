@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -8,17 +9,17 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="458.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
+<AnchorPane prefHeight="481.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
    <children>
       <!-- Sidebar -->
-      <AnchorPane fx:id="sidebar" prefHeight="490.0" prefWidth="200.0" style="-fx-background-color: #34495e;">
+      <AnchorPane fx:id="sidebar" prefHeight="511.0" prefWidth="200.0" style="-fx-background-color: #34495e;">
          <children>
-            <Button layoutX="17.0" layoutY="158.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Rooms" />
+            <Button fx:id="roomManage" layoutX="17.0" layoutY="158.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Rooms" />
             <Button layoutX="17.0" layoutY="198.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage New Tenant" />
             <Button layoutX="17.0" layoutY="238.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Tenants" />
             <Button layoutX="17.0" layoutY="278.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Facilities" />
-            <Button layoutX="20.0" layoutY="431.0" prefWidth="160" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
-            <ImageView fitHeight="205.0" fitWidth="233.0" layoutX="-5.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
+            <Button layoutX="20.0" layoutY="453.0" prefWidth="160" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+            <ImageView fitHeight="205.0" fitWidth="205.0" layoutX="-5.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Dorm.png" />
                </image>
@@ -31,10 +32,10 @@
          <children>
             <!-- Search Bar and Add Room Button -->
             <TextField fx:id="searchBar" layoutX="10" layoutY="10" onKeyReleased="#handleSearch" prefWidth="300" promptText="Search Rooms" />
-            <Button fx:id="addRoomButton" layoutX="320" layoutY="10" onAction="#handleAddRoom" style="-fx-background-color: green; -fx-text-fill: white;" text="Add Room" />
+            <Button fx:id="addRoomButton" layoutX="320" layoutY="10" style="-fx-background-color: green; -fx-text-fill: white;" text="Add Room" />
 
             <!-- TableView -->
-            <TableView fx:id="roomsTable" layoutX="10.0" layoutY="45.0" prefHeight="400.0" prefWidth="600">
+            <TableView fx:id="roomsTable" layoutX="10.0" layoutY="71.0" prefHeight="400.0" prefWidth="600">
                <columns>
                   <!-- Columns -->
                   <TableColumn fx:id="idColumn" prefWidth="50" text="ID#" />
@@ -45,6 +46,7 @@
                   <TableColumn fx:id="actionsColumn" prefWidth="177.0" text="Actions" />
                </columns>
             </TableView>
+            <Label fx:id="statusLabel" layoutX="14.0" layoutY="43.0" prefHeight="17.0" prefWidth="241.0" textAlignment="CENTER" textFill="LIME" />
          </children>
       </AnchorPane>
    </children>

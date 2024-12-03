@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddRoomController">
+    <children>
+        <!-- Sidebar -->
+        <AnchorPane fx:id="sidebar" prefHeight="490.0" prefWidth="200.0" style="-fx-background-color: #34495e;">
+            <children>
+                <Button fx:id="roomManage" layoutX="17.0" layoutY="158.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Rooms" />
+                <Button layoutX="17.0" layoutY="198.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage New Tenant" />
+                <Button layoutX="17.0" layoutY="238.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Tenants" />
+                <Button layoutX="17.0" layoutY="278.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Facilities" />
+                <Button layoutX="20.0" layoutY="431.0" prefWidth="160" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+                <ImageView fitHeight="205.0" fitWidth="233.0" layoutX="-5.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/Dorm.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+
+        <!-- Form Section -->
+        <VBox layoutX="210.0" layoutY="20.0" prefWidth="350.0" spacing="10.0">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Add New Room" />
+            <Label text="Room Number:" />
+            <TextField fx:id="roomNumberField" promptText="Enter Room Number" />
+            <Label text="Room Type:" />
+            <ComboBox fx:id="roomTypeComboBox" promptText="Select Room Type">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Male Double" />
+                        <String fx:value="Female Double" />
+                        <String fx:value="Male Single" />
+                        <String fx:value="Female Single" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Label text="Total Slots:" />
+            <TextField fx:id="totalSlotsField" promptText="Enter Total Slots" />
+            <Button fx:id="addRoomButton" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Add Room" />
+        </VBox>
+    </children>
+</AnchorPane>

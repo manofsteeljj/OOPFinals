@@ -59,7 +59,6 @@ public class LoginController {
             }
 
             if (validateCredentials(username, password)) {
-                System.out.println("Login successful!");
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/Dashboard.fxml"));
                     Parent root = loader.load();
