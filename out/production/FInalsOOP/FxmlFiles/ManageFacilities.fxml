@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="495.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.ManageFacilityController">
+
+    <!-- Sidebar -->
+    <AnchorPane fx:id="sidebar" prefHeight="495.0" prefWidth="200.0" style="-fx-background-color: #34495e;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+            <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="40.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../img/Dorm.png" />
+                </image>
+            </ImageView>
+            <Button fx:id="roomManage" layoutX="20.0" layoutY="160.0" prefWidth="160.0" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Rooms" />
+            <Button fx:id="manageNewTenant" layoutX="20.0" layoutY="200.0" prefWidth="160.0" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage New Tenant" />
+            <Button fx:id="manageTenant" layoutX="20.0" layoutY="240.0" prefWidth="160.0" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Tenants" />
+            <Button fx:id="manageFacility" layoutX="20.0" layoutY="280.0" prefWidth="160.0" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Facilities" />
+            <Button fx:id="logoutButton" layoutX="20.0" layoutY="444.0" prefWidth="160.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+        </children>
+    </AnchorPane>
+
+    <!-- Main Content -->
+    <VBox spacing="10" AnchorPane.leftAnchor="220" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+        <Text style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Manage Facilities" />
+        <TextField fx:id="searchField" onKeyReleased="#onSearch" promptText="Search Facilities" />
+        <TableView fx:id="facilitiesTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="50" text="ID" />
+                <TableColumn fx:id="typeColumn" prefWidth="115.0" text="Type" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="175.0" text="Description" />
+                <TableColumn fx:id="statusColumn" prefWidth="115.0" text="Status" />
+                <TableColumn fx:id="actionsColumn" prefWidth="114.0" text="Actions" />
+            </columns>
+        </TableView>
+    </VBox>
+
+</AnchorPane>

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddRoomController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddTenantController">
     <children>
         <!-- Sidebar -->
         <AnchorPane fx:id="sidebar" prefHeight="490.0" prefWidth="200.0" style="-fx-background-color: #34495e;">
@@ -31,23 +31,30 @@
 
         <!-- Form Section -->
         <VBox layoutX="210.0" layoutY="20.0" prefWidth="350.0" spacing="10.0">
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Add New Room" />
-            <Label text="Room Number:" />
-            <TextField fx:id="roomNumberField" promptText="Enter Room Number" />
-            <Label text="Room Type:" />
-            <ComboBox fx:id="roomTypeComboBox" promptText="Select Room Type">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Add New Tenant" />
+
+            <!-- Full Name -->
+            <Label text="Full Name:" />
+            <TextField fx:id="fullNameField" promptText="Enter Full Name" />
+
+            <!-- Gender -->
+            <Label text="Gender:" />
+            <ComboBox fx:id="genderComboBox" promptText="Select Gender">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Male Double" />
-                        <String fx:value="Female Double" />
-                        <String fx:value="Male Single" />
-                        <String fx:value="Female Single" />
+                        <String fx:value="Male" />
+                        <String fx:value="Female" />
+                        <String fx:value="Other" />
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Label text="Total Slots:" />
-            <TextField fx:id="totalSlotsField" promptText="Enter Total Slots" />
-            <Button fx:id="addRoomButton" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Add Room" />
+
+            <!-- Mobile Number -->
+            <Label text="Mobile Number:" />
+            <TextField fx:id="mobileNumberField" promptText="Enter Mobile Number" />
+
+            <!-- Add Tenant Button -->
+            <Button fx:id="addTenantButton" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Add Tenant" onAction="#handleAddTenant" />
         </VBox>
     </children>
 </AnchorPane>

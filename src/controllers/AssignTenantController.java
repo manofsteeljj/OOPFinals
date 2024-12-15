@@ -1,22 +1,26 @@
 package controllers;
 
+import db.DatabaseConnection;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.io.IOException;
 
-public class AddRoomController {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class AssignTenantController {
+
+    @FXML
+    private ComboBox<String> roomComboBox;
     @FXML
     private Button roomManage;
     @FXML
@@ -29,24 +33,13 @@ public class AddRoomController {
     private Button logoutButton;
 
     @FXML
-    private TextField roomNumberField;
+    private DatePicker stayFromPicker;
 
     @FXML
-    private ComboBox<String> roomTypeComboBox;
+    private DatePicker stayToPicker;
+    private int tenantID;
 
-    @FXML
-    private TextField totalSlotsField;
-
-    @FXML
-    private Button addRoomButton;
-
-    // Database credentials
-    private static final String URL = "jdbc:mysql://localhost:3306/dormdb_sasa";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
-
-    @FXML
-    private void initialize() {
+    public void initialize() {
         logoutButton.setOnAction(actionEvent -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/Login.fxml"));
@@ -120,69 +113,79 @@ public class AddRoomController {
             }
         });
 
-        addRoomButton.setOnAction(actionEvent -> {
-            String roomNumber = roomNumberField.getText();
-            String roomType = roomTypeComboBox.getValue();
-            String totalSlotsText = totalSlotsField.getText();
-
-            if (roomNumber.isEmpty() || roomType == null || totalSlotsText.isEmpty()) {
-                showAlert("Error", "Please fill all fields.");
-                return;
-            }
-
-            int totalSlots;
-            try {
-                totalSlots = Integer.parseInt(totalSlotsText);
-            } catch (NumberFormatException e) {
-                showAlert("Error", "Total Slots must be a valid number.");
-                return;
-            }
-
-            // Insert the new room into the database
-            try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
-                String query = "INSERT INTO rooms (room_number, room_type, total_slots, remaining_slots) VALUES (?, ?, ?, ?)";
-                try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                    stmt.setString(1, roomNumber);
-                    stmt.setString(2, roomType);
-                    stmt.setInt(3, totalSlots);
-                    stmt.setInt(4, totalSlots);
-                    stmt.executeUpdate();
-                    showAlert("Success", "Room added successfully.");
-                    clearFields();
-                    redirectToDashboard();
-                } catch (SQLException e) {
-                    showAlert("Error", "Error adding room to the database: " + e.getMessage());
-                }
-            } catch (SQLException e) {
-                showAlert("Error", "Connection error: " + e.getMessage());
-            }
-        });
+        loadAvailableRooms();
+    }
+    public void setTenantId(int tenantId) {
+        this.tenantID = tenantId;
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
+    private void loadAvailableRooms() {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT * FROM rooms WHERE remaining_slots > 0";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String room = rs.getString("room_number") + " (" + rs.getString("room_type") + ")";
+                roomComboBox.getItems().add(room);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showError("Failed to load available rooms.");
+        }
+    }
+
+    @FXML
+    private void handleAssignTenant() {
+        String selectedRoom = roomComboBox.getValue();
+        if (selectedRoom == null || stayFromPicker.getValue() == null || stayToPicker.getValue() == null) {
+            showError("Please fill out all fields.");
+            return;
+        }
+
+        // Extract room ID and dates from the selection
+        String roomId = selectedRoom.split(" ")[0];
+        String stayFrom = stayFromPicker.getValue().toString();
+        String stayTo = stayToPicker.getValue().toString();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            // Assign the tenant to the room
+            String query = "UPDATE tenants SET room_id = ?, stay_from = ?, stay_to = ? WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, roomId);
+            stmt.setString(2, stayFrom);
+            stmt.setString(3, stayTo);
+            stmt.setInt(4, 1); // Replace with actual tenant ID
+
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                // Update room's remaining slots
+                String updateRoomQuery = "UPDATE rooms SET remaining_slots = remaining_slots - 1 WHERE id = ?";
+                PreparedStatement updateRoomStmt = conn.prepareStatement(updateRoomQuery);
+                updateRoomStmt.setString(1, roomId);
+                updateRoomStmt.executeUpdate();
+
+                showInfo("Tenant assigned successfully.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showError("Failed to assign tenant.");
+        }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
 
-    private void clearFields() {
-        roomNumberField.clear();
-        roomTypeComboBox.getSelectionModel().clearSelection();
-        totalSlotsField.clear();
-    }
-
-    private void redirectToDashboard() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/Dashboard.fxml"));
-            Scene dashboardScene = new Scene(loader.load());
-
-            Stage stage = (Stage) addRoomButton.getScene().getWindow();
-            stage.setScene(dashboardScene);
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Error", "Failed to load the dashboard: " + e.getMessage());
-        }
+    private void showInfo(String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

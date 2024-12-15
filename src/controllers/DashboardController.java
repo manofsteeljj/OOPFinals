@@ -12,11 +12,21 @@ import javafx.stage.Stage;
 import models.Room;
 
 import java.sql.*;
-import java.util.Stack;
 
 public class DashboardController {
     @FXML
+    private Button manageFacility;
+    @FXML
     private Button roomManage;
+    @FXML
+    private Button logoutButton;
+
+    @FXML
+    private Button manageNewTenant;
+
+    @FXML
+    private Button manageTenant;
+
     @FXML
     private Label statusLabel;
 
@@ -51,6 +61,49 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
+        logoutButton.setOnAction(actionEvent -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/Login.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) logoutButton.getScene().getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.setTitle("Login");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        manageTenant.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/ManageTenant.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) manageTenant.getScene().getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.setTitle("Manage Tenant");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        manageNewTenant.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/ManageNewTenant.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) manageNewTenant.getScene().getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.setTitle("Manage New Tenant");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         roomManage.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/Dashboard.fxml"));
@@ -60,11 +113,34 @@ public class DashboardController {
 
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
-                stage.setTitle("Register");
+                stage.setTitle("Manage Rooms");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+
+        manageFacility.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/ManageFacilities.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) manageFacility.getScene().getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.setResizable(false);
+                stage.setTitle("Manage Facility");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+
+
+
+
+
+
+
         addRoomButton.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/AddRoom.fxml"));
@@ -101,22 +177,46 @@ public class DashboardController {
 
                 // Button actions
                 manageButton.setOnAction(event -> {
-                    Room room = getTableView().getItems().get(getIndex());
-                    handleManageRoom(room);
+                    Room selectedRoom = getTableView().getItems().get(getIndex());
+                    if (selectedRoom != null) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/RoomManageAction.fxml"));
+                            Parent root = loader.load();
+
+                            // Access the controller and pass    the room ID
+                            RoomManageAction controller = loader.getController();
+                            controller.setRoomId(selectedRoom.getId());
+
+                            // Set up the stage
+                            Stage stage = (Stage) manageButton.getScene().getWindow();
+                            stage.setScene(new Scene(root));
+                            stage.setResizable(false);
+                            stage.setTitle("Manage Tenants for Room " + selectedRoom.getRoomNumber());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 });
 
                 editButton.setOnAction(event -> {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/EditRoomAction.fxml"));
-                        Parent root = loader.load();
+                    Room selectedRoom = getTableView().getItems().get(getIndex());
+                    if (selectedRoom != null) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FxmlFiles/EditRoomAction.fxml"));
+                            Parent root = loader.load();
 
-                        Stage stage = (Stage) editButton.getScene().getWindow();
+                            // Access the controller and pass  the room ID
+                            EditRoomActionController controller = loader.getController();
+                            controller.setRoomId(selectedRoom.getId());
 
-                        stage.setScene(new Scene(root));
-                        stage.setResizable(false);
-                        stage.setTitle("Edit Room");
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                            // Set up the stage
+                            Stage stage = (Stage) manageButton.getScene().getWindow();
+                            stage.setScene(new Scene(root));
+                            stage.setResizable(false);
+                            stage.setTitle("Manage Tenants for Room " + selectedRoom.getRoomNumber());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
@@ -141,7 +241,6 @@ public class DashboardController {
         loadRoomData();
         roomsTable.setItems(roomList);
     }
-
     private void loadRoomData() {
         String url = "jdbc:mysql://localhost:3306/dormdb_sasa";
         String user = "root";
@@ -180,11 +279,7 @@ public class DashboardController {
     }
 
 
-    // Action buttons
 
-    private void handleManageRoom(Room room) {
-        // Logic to manage a room
-    }
 
     private void handleEditRoom(Room room) {
 

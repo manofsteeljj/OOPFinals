@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="474.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AssignTenantController">
+
+    <!-- Sidebar -->
+    <AnchorPane fx:id="sidebar" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #34495e;">
+        <children>
+            <Button fx:id="roomManage" layoutX="17.0" layoutY="158.0"  prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Rooms" />
+            <Button fx:id="manageNewTenant" layoutX="17.0" layoutY="198.0"  prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage New Tenant" />
+            <Button fx:id="manageTenant" layoutX="17.0" layoutY="238.0"  prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Tenants" />
+            <Button fx:id="manageFacility" layoutX="17.0" layoutY="278.0"  prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Facilities" />
+            <Button fx:id="logoutButton" layoutX="20.0" layoutY="431.0"  prefWidth="160" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+            <ImageView fitHeight="205.0" fitWidth="233.0" layoutX="-5.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../img/Dorm.png" />
+                </image>
+            </ImageView>
+        </children>
+    </AnchorPane>
+
+    <!-- Main Content -->
+    <AnchorPane layoutX="200.0" prefHeight="500.0" prefWidth="375.0" style="-fx-background-color: #2c3e50;">
+        <VBox alignment="CENTER" layoutX="62.0" layoutY="79.0" spacing="20">
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Assign Tenant to Room" />
+
+            <!-- Room Selection -->
+            <Label style="-fx-text-fill: white;" text="Room" />
+            <ComboBox fx:id="roomComboBox" promptText="Select Room" />
+
+            <!-- Stay Period -->
+            <Label style="-fx-text-fill: white;" text="Stay From" />
+            <DatePicker fx:id="stayFromPicker" promptText="Select Stay From" />
+
+            <Label style="-fx-text-fill: white;" text="Stay To" />
+            <DatePicker fx:id="stayToPicker" promptText="Select Stay To" />
+
+            <!-- Submit Button -->
+            <HBox alignment="CENTER" spacing="10">
+                <Button onAction="#handleAssignTenant" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Assign Tenant" />
+            </HBox>
+        </VBox>
+    </AnchorPane>
+
+</AnchorPane>

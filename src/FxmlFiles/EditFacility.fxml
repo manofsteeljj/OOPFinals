@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="474.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditRoomActionController">
+<AnchorPane prefHeight="500.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditFacilityController">
 
     <!-- Sidebar -->
     <AnchorPane fx:id="sidebar" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #34495e;">
@@ -31,38 +31,33 @@
     </AnchorPane>
 
     <!-- Main Content -->
-    <AnchorPane layoutX="200.0" prefHeight="500.0" prefWidth="277.0" style="-fx-background-color: #2c3e50;">
-        <VBox alignment="CENTER" layoutX="40" layoutY="20" spacing="20">
-            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Edit Room" />
+    <AnchorPane layoutX="200.0" prefHeight="500.0" prefWidth="262.0" style="-fx-background-color: #2c3e50;">
+        <VBox alignment="CENTER" layoutX="61.0" layoutY="87.0" spacing="20">
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="Edit Facility" />
 
-            <!-- Room Number -->
-            <Label style="-fx-text-fill: white;" text="Room Number" />
-            <TextField fx:id="roomNumberField" promptText="Enter Room Number" />
+            <!-- Facility Type -->
+            <Label style="-fx-text-fill: white;" text="Facility Type" />
+            <TextField fx:id="facilityTypeField" promptText="Enter Facility Type" />
 
-            <!-- Room Type -->
-            <Label style="-fx-text-fill: white;" text="Room Type" />
-            <ComboBox fx:id="roomTypeComboBox" promptText="Select Room Type">
+            <!-- Description -->
+            <Label style="-fx-text-fill: white;" text="Description" />
+            <TextField fx:id="descriptionField" promptText="Enter Facility Description" />
+
+            <!-- Status -->
+            <Label style="-fx-text-fill: white;" text="Status" />
+            <ComboBox fx:id="statusComboBox" promptText="Select Status">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Male Double" />
-                        <String fx:value="Female Double" />
-                        <String fx:value="Female Single" />
-                        <String fx:value="Male Single" />
+                        <String fx:value="Available" />
+                        <String fx:value="Being Used" />
+                        <String fx:value="Under Maintenance" />
                     </FXCollections>
                 </items>
             </ComboBox>
 
-            <!-- Total Slots -->
-            <Label style="-fx-text-fill: white;" text="Total Slots" />
-            <TextField fx:id="totalSlotsField" promptText="Enter Total Slots" />
-
-            <!-- Remaining Slots -->
-            <Label style="-fx-text-fill: white;" text="Remaining Slots" />
-            <TextField fx:id="remainingSlotsField" promptText="Enter Remaining Slots" />
-
             <!-- Buttons -->
             <HBox alignment="CENTER" spacing="10">
-                <Button onAction="#handleUpdateRoom" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Update Room" />
+                <Button onAction="#handleUpdateFacility" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Update Facility" />
                 <Button fx:id="cancelButton" onAction="#handleCancel" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cancel" />
             </HBox>
         </VBox>

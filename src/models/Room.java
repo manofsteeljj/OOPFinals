@@ -17,40 +17,43 @@ public class Room {
         this.remainingSlots = new SimpleIntegerProperty(remainingSlots);
     }
 
+    public int getId() {
+        return id.get();
+    }
+
     public IntegerProperty idProperty() {
         return id;
-    }
-
-    public StringProperty roomNumberProperty() {
-        return roomNumber;
-    }
-
-    public StringProperty roomTypeProperty() {
-        return roomType;
-    }
-
-    public IntegerProperty totalSlotsProperty() {
-        return totalSlots;
-    }
-
-    public IntegerProperty remainingSlotsProperty() {
-        return remainingSlots;
     }
 
     public String getRoomNumber() {
         return roomNumber.get();
     }
 
+    public StringProperty roomNumberProperty() {
+        return roomNumber;
+    }
+
     public String getRoomType() {
         return roomType.get();
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id.get() +
-                ", roomNumber='" + roomNumber.get() + '\'' +
-                ", roomType='" + roomType.get() + '\'' +
-                '}';
+    public StringProperty roomTypeProperty() {
+        return roomType;
+    }
+
+    public int getTotalSlots() {
+        return totalSlots.get();
+    }
+
+    public IntegerProperty totalSlotsProperty() {
+        return totalSlots;
+    }
+
+    public int getRemainingSlots() {
+        return remainingSlots.get();
+    }
+
+    public IntegerProperty remainingSlotsProperty() {
+        return remainingSlots;
     }
 }

@@ -15,11 +15,11 @@
       <AnchorPane fx:id="sidebar" prefHeight="511.0" prefWidth="200.0" style="-fx-background-color: #34495e;">
          <children>
             <Button fx:id="roomManage" layoutX="17.0" layoutY="158.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Rooms" />
-            <Button layoutX="17.0" layoutY="198.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage New Tenant" />
-            <Button layoutX="17.0" layoutY="238.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Tenants" />
-            <Button layoutX="17.0" layoutY="278.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Facilities" />
-            <Button layoutX="20.0" layoutY="453.0" prefWidth="160" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
-            <ImageView fitHeight="205.0" fitWidth="205.0" layoutX="-5.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="manageNewTenant" layoutX="17.0" layoutY="198.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage New Tenant" />
+            <Button fx:id="manageTenant" layoutX="17.0" layoutY="238.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Tenants" />
+            <Button fx:id="manageFacility" layoutX="17.0" layoutY="278.0" prefWidth="160" style="-fx-background-color: #2c3e50; -fx-text-fill: white;" text="Manage Facilities" />
+            <Button fx:id="logoutButton" layoutX="20.0" layoutY="453.0" prefWidth="160" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+            <ImageView fitHeight="148.0" fitWidth="205.0" layoutX="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Dorm.png" />
                </image>
